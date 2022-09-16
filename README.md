@@ -25,6 +25,7 @@ plt <name_of_the_file>
 ```
 
 The program is allowed to draw plots of files that look like this:
+```
 # comment
 # comment
 123     453
@@ -32,6 +33,7 @@ The program is allowed to draw plots of files that look like this:
 4543    567
 946     601
 ...
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
