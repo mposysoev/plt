@@ -2,6 +2,8 @@
 
 Simple one-line plotting tool
 
+![Screenshoot](image/screenshoot.png?raw=true "Screenshoot")
+
 ## Installation
 
 ### Hard way:
