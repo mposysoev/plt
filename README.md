@@ -8,19 +8,19 @@ Simple one-line plotting tool
 
 ### Hard way:
 1. Install Rust via [Rustup](https://rustup.rs/)
-2. Compile project with:
+2. Compile the project with:
 
 ```bash
 cargo build --release
 ```
 
-3. Place executable file in directory: /usr/local/bin (for Linux)
-For Windows: place executable file in any conviniet directory, after that add PATH to your Environment variables
+3. Place the executable file in directory: /usr/local/bin (for Linux)
+For Windows: place the executable file in any convenient directory, after that add PATH to your Environment variables
 
 ### Easy way:
 1. Download the executable from the Release section
-2. Place executable file in directory: /usr/local/bin (for Linux)
-For Windows: place executable file in any conviniet directory, after that add PATH to your Environment variables
+2. Place the executable file in directory: /usr/local/bin (for Linux)
+For Windows: place the executable file in any convenient directory, after that add PATH to your Environment variables
 
 ## Usage
 
