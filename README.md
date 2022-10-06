@@ -14,11 +14,13 @@ Simple one-line plotting tool
 cargo build --release
 ```
 
-3. Place executable file in directory: /usr/local/bin
+3. Place executable file in directory: /usr/local/bin (for Linux)
+For Windows: place executable file in any conviniet directory, after that add PATH to your Environment variables
 
 ### Easy way:
 1. Download the executable from the Release section
-2. Place it in directory: /usr/local/bin
+2. Place executable file in directory: /usr/local/bin (for Linux)
+For Windows: place executable file in any conviniet directory, after that add PATH to your Environment variables
 
 ## Usage
 
