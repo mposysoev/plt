@@ -15,11 +15,13 @@ cargo build --release
 ```
 
 3. Place the executable file in directory: /usr/local/bin (for Linux)
+
 For Windows: place the executable file in any convenient directory, after that add PATH to your Environment variables
 
 ### Easy way:
 1. Download the executable from the Release section
 2. Place the executable file in directory: /usr/local/bin (for Linux)
+
 For Windows: place the executable file in any convenient directory, after that add PATH to your Environment variables
 
 ## Usage
