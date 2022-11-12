@@ -1,4 +1,4 @@
-# RS-plotter
+# PLT
 
 Simple one-line plotting tool
 
