@@ -1,9 +1,10 @@
-use egui::{
-    self,
-    plot::{Line, Plot, PlotPoints},
+use egui::{self};
+use egui_plot::{Line, Plot, PlotPoints};
+use std::{
+    env,
+    fs::File,
+    io::{self, BufRead, BufReader},
 };
-use std::env;
-use std::{fs::File, io::Read};
 
 #[derive(Clone)]
 struct App {
@@ -28,34 +29,57 @@ impl eframe::App for App {
     }
 }
 
-fn get_data_from_file(path_to_file: &str) -> Vec<[f64; 2]> {
-    let mut data = File::open(path_to_file).unwrap();
-    let mut contents = String::new();
-    data.read_to_string(&mut contents).unwrap();
-
-    let lines = contents.lines();
-
+fn get_data_from_file(path_to_file: &str) -> io::Result<Vec<[f64; 2]>> {
+    let file = File::open(path_to_file)?;
+    let reader = BufReader::new(file);
     let mut values = Vec::new();
+    let mut line_number = 0.0;
 
-    for line in lines {
-        if line.starts_with('#') {
+    for line in reader.lines() {
+        let line = line?;
+        if line.starts_with('#') || line.starts_with('%') || line.starts_with('/') {
             continue;
-        } else {
-            let mut iter = line.split_ascii_whitespace();
-            let x: f64 = iter.next().unwrap().parse().unwrap();
-            let y: f64 = iter.next().unwrap().parse().unwrap();
+        }
+        let mut iter = line.split_ascii_whitespace();
+        let x: f64;
+        let y: f64;
+
+        if let Some(first_value) = iter.next() {
+            let first_value: f64 = first_value.parse().unwrap_or_default();
+            if let Some(second_value) = iter.next() {
+                // If there's a second value, use the first as x and the second as y
+                x = first_value;
+                y = second_value.parse().unwrap_or_default();
+            } else {
+                // If there's only one value, use line number as x and the value as y
+                x = line_number;
+                y = first_value;
+            }
             values.push([x, y]);
+            line_number += 1.0;
         }
     }
-    values
+    Ok(values)
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let file_name = &args[1];
-    let file_data = get_data_from_file(file_name);
+    if args.len() < 2 {
+        eprintln!("Usage: {} <file_path>", args[0]);
+        return;
+    }
 
-    let app = App::new(file_data);
-    let options = eframe::NativeOptions::default();
-    eframe::run_native(file_name, options, Box::new(|_cc| Box::new(app)));
+    let file_name = &args[1];
+    let app_name = format!("Plot for {}", file_name);
+    
+    match get_data_from_file(file_name) {
+        Ok(file_data) => {
+            let app = App::new(file_data);
+            let options = eframe::NativeOptions::default();
+            let _ = eframe::run_native(&app_name, options, Box::new(|_cc| Box::new(app)));
+        }
+        Err(err) => {
+            eprintln!("Error reading file: {}", err);
+        }
+    }
 }
